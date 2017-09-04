@@ -263,7 +263,7 @@ a:hover {
 	padding: 0px 0px 20px 0px;
 	padding-bottom: 20px;
 	text-align: justify;
-	font-size: medium;
+	font-size: 1.2em;
 }
 
 .links {
@@ -380,4 +380,9 @@ a:hover {
 
 #footer a {
 	color:black;
+}
+
+table, th, td {
+   border: 1px solid grey;
+   
 }
