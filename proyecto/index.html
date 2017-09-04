@@ -43,6 +43,13 @@
 					Una posible respuesta a la cuestión anteriormente planteada podría ser el de recurrir a plataformas o sistemas web colaborativos, con el objetivo de poder hacer preguntas o revisar  soluciones respecto al problema en cuestión. Uno de los sistemas web colaborativos más populares entre los desarrolladores informáticos en la web es denominado:<a href="https://stackoverflow.com/">“Stack Overflow”</a>.
 					</p>
 					<p>Stack Overflow, es uno de los sistemas colaborativos en línea más grande y confiable entre comunidad de desarrolladores informáticos, en la que los usuarios puedan hacer  y responder preguntas.  Fue creado como una alternativa abierta a otras plataformas web colaborativas como Experts-Exchange, Yahoo Answers, entre otros. </p>
+					<br><br>
+					<table align="center">
+
+						<tr><tr><td align="center"><b>"Monthly StackOverflow Visitors, January 2016"</b></td></tr><td><img src="images/visitorsJanuary2016.png" width="900" height="350"></img></td></tr>	
+					</table>
+					
+					<br><br>
 					<p>
 					El trabajo propuesto consiste en realizar un análisis y una clasificación de las preguntas y las respuestas posteadas en la plataforma, esto en base a ciertos atributos obtenidos de las tablas de la base de datos “stackoverflow” en  Google BigQuery.
 					</p>
@@ -62,21 +69,43 @@
 				 <table align="center" border="1">
 
 				 <tr>
-				 	<td>Num.</td>
-				 	<td>Tabla</td>
-				 	<td>Descripci&oacute;n</td>
-				 	<td>Atributos Relevantes</td>
+				 	<td align="center"><b>Num.</b></td>
+				 	<td align="center"><b>Tabla</b></td>
+				 	<td width="320" align="center"><b>Descripci&oacute;n</b></td>
+				 	<td align="center"><b>Atributos Relevantes</b></td>
 				 </tr>
 				 <tr>
 				 	<td>1</td>
 				 	<td>posts_questions</td>
 				 	<td>Contiene información relacionada a una pregunta realizada por un usuario registrado en la comunidad</td>
 				 	<td>
-				 		<ul><li>id</li><li>title</li><li>accepted_answer_id</li><li>answer_count</li></ul>
+				 		<ul><li>id</li><li>title</li><li>answer_count</li><li>score</li><li>tags</li></ul>
+				 	</td>
+				 </tr>
+				 <tr>
+				 	<td>2</td>
+				 	<td>posts_answers</td>
+				 	<td>Contiene información de las respuestas a preguntas realizadas y la calificación que la respuesta recibió.</td>
+				 	<td>
+				 		<ul><li>id</li><li>body</li><li>comment_count</li><li>creation_date</li><li>score</li></ul>
+				 	</td>
+				 </tr>
+
+				 <tr>
+				 	<td>3</td>
+				 	<td>users</td>
+				 	<td>Detalla información de los usuarios registrados y los usuarios visitantes en caso que estos tengan alguna insignia o reputación.</td>
+				 	<td>
+				 		<ul>
+				 			<li>location</li><li>reputation</li><li>up_votes</li><li>down_votes</li>
+				 		</ul>
 				 	</td>
 				 </tr>
 	
 				 </table>
+
+				 </br>
+
 				 <p>Para el proyecto se seleccionó la base de datos de Stack Overflow, está conformada de 16 tablas, de las cuales seleccionamos las más relevantes para el análisis</p>
 				 <center>
 				 <table align="center" border="1">
@@ -215,7 +244,6 @@ select q_id, min(a_creation_date)from
 				"Min(e)d Your Tags: Analysis of Question Response Time in StackOverflow".</p>
 				<p>[3]. Fabio Calefato, Filippo Lanubile, Maria Concetta Marasciulo, Nicole Novielli (2015), "Mining Successful Answers in Stack Overflow", Conference: MSR 2015 - The 12th Working Conference on Mining Software Repositories.</p>
 				<p>[4]. Muhammad A, Ahmed Shah M, Chanchal K. Roy, Kevin A. Schneider, Answering Questions about Unanswered Questions of Stack Overflow, Mining Software Repositories (MSR), 2013 10th IEEE Working.</p>
-				
 			</div>
 	
 			<!--<div class="post">
