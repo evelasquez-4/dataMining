@@ -389,3 +389,8 @@ a:hover {
 #footer a {
 	color:black;
 }
+
+table, th, td {
+   border: 1px solid grey;
+   
+}

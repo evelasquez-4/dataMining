@@ -18,13 +18,10 @@
 	</div>
 	<!-- end #header -->
 	<div id="menu">
-		<ul id="menu">
-			<li class="current_page_item"><a href="#">Inicio</a></li>
-			<li><a href="#">Introducci&oacute;n</a></li>
-			<li><a href="#">Photos</a></li>
-			<li><a href="#">About</a></li>
-			<li><a href="#">Links</a></li>
-			<li><a href="#">Contact</a></li>
+		<ul>
+			<li class="current_page_item"><a href="#">Introducción</a></li>
+			<li><a href="#">Análisis</a></li>
+			<li><a href="#">Resultados</a></li>			
 		</ul>
 	</div>
 	<!-- end #menu -->
@@ -47,6 +44,18 @@
 					</p>
 					<p>Stack Overflow. es la comunidad de desarrolladores informáticos en línea más grande y confiable de la web, en la que estos aprenden  y comparten sus conocimientos.  El sitio web sirve como una plataforma para que los usuarios puedan hacer  y responder preguntas. Los usuarios registrados en la comunidad y que tienen participación activa en la comunidad, pueden votar preguntas y respuestas, editar preguntas y respuestas de manera similar a un Wiki. </p>
 
+					<p>Existen muchos sistemas exchange, entre ellos algunos bien conocidos Yahoo Answers y Quora, en el siguiente enlace se pueden ver más de estos sistemas. <a href="https://stackexchange.com/sites">Stack Exchange</a>. </p>
+
+					<p>Existen ya algunos estudios sobre estos sitios, y no solamente de temas de la industria de tecnología sino también de sistemas Q&#38;A en general, por ejemplo sobre Yahoo Answers, el artículo denominado Measuring effectiveness and user satisfaction in Yahoo[1], que analiza 3 puntos: que tan rápido una pregunta es respondida, que tan rápido una pregunta es aceptada por el usuario por que satisface su interrogante y cuál es la relación entre una respuesta que satisface al usuario y el resto de respuestas, éste análisis tiene como objetivo determinar la eficiencia del sistema y la satisfacción del usuario.</p>
+
+					<p>Chirag et al [2] hace un estudio para predecir el tiempo de respuesta de una pregunta en StackOverflow, su análisis se basa en el análisis de características basadas en tags: como la popularidad del tag usado en una pregunta, tags populares, la probabilidad de que un conjunto de tags se muestren juntos en una pregunta, número de usuarios suscritos a los tags en base a las preguntas respondidas, y features correspondientes a la reputación de los usuarios y sus tiempos de respuesta, de estos features la reputación del usuario determinada por sus tiempos de respuestas era el feature que proporcionaba mayor fiabilidad al modelo, seguido de la popularidad del tag.</p>
+
+
+					<p>Mining Successful Answers et al [3], es otro de los artículos que estudia como predecir si una respuesta será marcada como aceptada, los factores estudiados son: Calidad de la presentación, afecto, tiempo y reputación o score de la respuesta, a diferencia de Chirag, en este estudio se evalua la calidad de la respuesta con análisis de sentimientos y con un modelo de regresión logística, obteniendo como resultado un mayor porcentaje de eficiencia en la feature de presencia de código en la respuesta, actitud positiva, reputación de la respuesta y del usuario que responde. </p>
+
+					<p>La base de datos de Stack OverFlow contiene gran cantidad de información sobre la cual crear distintos features para hacer un clasificador. En la propuesta del presente proyecto se analizará tanto las preguntas, respuestas y usuarios del sistema. </p>
+
+
 				</div>
 			</div>
 
@@ -55,8 +64,9 @@
 				<div style="clear: both;">&nbsp;</div>
 				<div class="entry">	
 				 <p>
-				 	Los datos utilizados para el proyecto fueron extraídos de <a href="https://bigquery.cloud.google.com/dataset/bigquery-public-data:stackoverflow">Stack Overflow Data</a> , El servicio web de Google BigQuery permite realizar almacenamiento y consulta de conjuntos de datos masivos con billones de filas.  
+				 	Los datos utilizados para el proyecto fueron extraídos de <a href="https://bigquery.cloud.google.com/dataset/bigquery-public-data:stackoverflow">Stack Overflow Data</a> , El servicio web de Google BigQuery permite realizar almacenamiento y consulta de conjuntos de datos masivos.  
 				 </p>
+
 				 <p>Para el proyecto se seleccionó la base de datos de Stack Overflow, esta base de datos esta conformada de 16 tablas, de los cuales las que más relevantes consideramos para el proyecto son :</p>
 				 <table align="center" border="1">
 
@@ -76,7 +86,145 @@
 				 </tr>
 	
 				 </table>
-				</div>
+				 <p>Para el proyecto se seleccionó la base de datos de Stack Overflow, está conformada de 16 tablas, de las cuales seleccionamos las más relevantes para el análisis</p>
+				 <center>
+				 <table align="center" border="1">
+				 	<tr cellspacing='0.5'> 
+				 		<th>Tabla</th>
+				 		<th>Registros</th>
+				 	</tr>
+				 		<td>users</td>
+				 		<td>7'250.739</td>
+				 	<tr>
+				 		<td>tags</td>
+				 		<td>49.306</td>
+				 	</tr>
+				 	<tr>
+				 		<td>post_questions</td>
+				 		<td>14'015.379</td>
+				 	</tr>
+				 	<tr>
+				 		<td>post_answers</td>
+				 		<td>22'046.899</td>
+				 	</tr>
+				 	<tr>
+				 		<td>comments</td>
+				 		<td>58'159.095</td>
+				 	</tr>
+				 </table>
+				 </center>
+				 <br/>
+				 <p> Con la finalidad de crear un dataset para el proceso de análisis se extrajeron los datos de preguntas realizadas desde Enero de 2016 hasta Junio de 2017.</p>
+
+				 <p> El data set resultante para el análisis contiene los siguientes atributos:</p>
+				 <p>
+				 a_id, a_comment_count, a_community_owned_date, a_creation_date, a_last_activity_date, a_edit, a_last_editor_display_name, a_last_editor_user_id, a_owner_display_name, a_owner_user_id, a_parent_id, a_post_type_id, a_score, a_tags, q_id, q_accepted_answer_id, q_answer_count, q_comment_count, q_community_owned_date, q_creation_date, q_favorite_count, q_last_activity_date, q_last_edit_date, q_last_editor_display_name, q_last_editor_user_id, q_owner_display_name, q_owner_user_id, q_post_type_id, q_f0_, q_tags, q_view_count, c_accepted_answer_id, user_id, user_age, user_creation_date, user_reputation, user_up_votes, user_down_votes, user_views</p>
+
+				 <p>Los datos mencionados anteriormente son el resultado de la consulta sobre las preguntas, respuestas y usuarios, los atributos que empiezan con a corresponden a las respuestas, q a las preguntas y user respectivamente</p>
+
+				 <p>Para entender un poco más del significado de estos atributos, recurrimos a la 
+				 <a href="https://stackoverflow.com/help/whats-reputation">Wiki de StackOverflow</a>. Las preguntas, respuestas y usuarios tienen un puntaje o score que suma cuando un usuario da un voto y también puede disminuir, adicionalmente se puede observar el número de visitas, las fechas de creación y respuesta de la pregunta y reputación del usuario.</p>
+			</div>
+			<div class="post">
+				<p class="meta"><span class="date">3. Procesamiento de Datos y exploración inicial</span></p>
+				<div style="clear: both;">&nbsp;</div>
+				<div class="entry">	
+
+				 <p>Como exploración inicial visualizamos los tags que más se usan en las preguntas:</p>
+				 <div style="background-color: #e6e6e6; font-size: 1.0em; border: 1px solid grey">
+				 	<pre class="python">
+import csv
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+reader = csv.reader(open('/media/jhomara/Datos/MG-DCC/MD/dm_project/tags_count_tags.csv', 
+'r',newline='\n'))
+d = {}
+for k,v in reader:
+	d[k] = int(v)
+	wordcloud = WordCloud(width=900,height=500, max_words=700,relative_scaling=1
+	,normalize_plurals=False).
+	generate_from_frequencies(d)
+	plt.imshow(wordcloud, interpolation='bilinear')
+	plt.axis("off")
+	plt.show()
+				 	</pre>
+				 </div>
+				 <center>
+				 <IMG SRC="images/wordCloud.png" ALT="Word Cloud Tags">				 
+				 </IMG>
+				 </center>
+				
+			</div>
+			</div>
+
+
+				 <p> Para el dataset de exploración seleccionamos las preguntas que tienen el tag java y python. </p>
+				<ol>
+					 <li>Se eliminaron los campos que no agregan valor a el análisis como id's y se reemplazaron los valores nulos, que eran datos vacíos por cero en los campos numéricos. 
+					 <div style="background-color: #e6e6e6; font-size: 1.0em; border: 1px solid grey">
+					 <pre class="sql"> 
+select q_id, 
+	case when a_comment_count is null then 0 else a_comment_count 
+	end as a_comment_count,
+	FORMAT_UTC_USEC(a_creation_date) as a_creation_date,
+FROM 
+	[fleet-automata-177802:filtros_stackoverflow.answer_question] 
+					 </pre>
+					 </div>
+					 </li>
+					 <li>
+					 <p>Se agregaron features como la fecha de la primera respuesta a una pregunta.</p> 
+					 <div style="background-color: #e6e6e6; font-size: 1.0em; border: 1px solid grey">
+					 <pre class="sql"> 
+select q_id, min(a_creation_date)from 
+	[fleet-automata-177802:filtros_stackoverflow.answer_question] group by 1
+					 </pre>
+					 </div>
+					 </li>
+					 <li>
+					 <p>Se obtuvieron algunas estadísticas sobre el tiempo de respuesta de las preguntas aceptadas y y la primera respuesta de una pregunta.</p>
+					 <center>
+					 <table>
+					 <tr>
+					 	<td>
+						<IMG SRC="images/tiempo_primera_respuesta.png" ALT="Primera respuesta" width="350" height="250">				 
+				 		</IMG>
+				 		</td>
+				 		<td>
+				 		<IMG SRC="images/tiempo_respuesta_aceptada.png" ALT="Respuesta aceptada" width="350" height="250">				 
+				 		</IMG>
+				 		</td>
+				 	 </tr>
+				 	 </table>
+				 	 </center>
+				 	 <p>
+				 	 	El comportamiento de la primera respuesta y la respuesta aceptada aparentemente es similar, esto indica que en la mayoría de los casos la primera respuesta tiene la solución acertada, sin embargo también se observa que hay preguntas que se responden después de días y en algunos casos meses. Este sería un factor determinante en determinar cuando una pregunta es más difícil que otra. 
+				 	 </p>
+				 	 </li>
+				 	 <li>
+				 	 <p>Adicionalmente se agruparon los datos de preguntas y respuestas para crear una visualización multidimensional(Parallel Cordinates), luego de un proceso de normalización de datos, para descubrir patrones sobre la clasificación de las preguntas. 
+				 	 </p>
+				 	  <center>
+				 	 <IMG SRC="images/preguntasRespuestas.png" ALT="Primera respuesta" width="700" height="500">
+				 	 </IMG>
+				 	 </center>
+				 	 <p>
+				 	 Los datos están clasificados por las preguntas con respuestas aceptadas(1) y con respuestas no aceptadas(0). La visualización presenta mucho ruido debido a que las dos clases tienen un comportamiento similar, sin embargo si se pueden observar patrones como el score de una pregunta que para el caso de preguntas sin respuesta tienen un score menos de 0, esto puede deberse a la ambiguedad de la pregunta, que sería un factor a tener en cuenta en la clasificación. Además también se puede observar que para este set de datos que gran cantidad de respuestas aceptadas en este caso no corresponde a las primeras respuestas.    
+				 	 </p>
+				 	 </li>
+					<p>
+					Una vez limpiados los datos se realizaron algunos análisis para encontrar patrones y definir las features que se considerarán para el diseño del modelo. 
+					</p>
+
+			</div>
+
+			<div>
+				<p>[1]. Chirag Shah (2011), Measuring effectiveness and user satisfaction in Yahoo.</p>
+				<p>[2]. Vasudev Bhat, Adheesh Gokhale, Ravi Jadhav, Jagat Pudipeddi, Leman Akoglu (2014)
+				"Min(e)d Your Tags: Analysis of Question Response Time in StackOverflow".</p>
+				<p>[3]. Fabio Calefato, Filippo Lanubile, Maria Concetta Marasciulo, Nicole Novielli (2015), "Mining Successful Answers in Stack Overflow", Conference: MSR 2015 - The 12th Working Conference on Mining Software Repositories.</p>
+				<p>[4]. Muhammad A, Ahmed Shah M, Chanchal K. Roy, Kevin A. Schneider, Answering Questions about Unanswered Questions of Stack Overflow, Mining Software Repositories (MSR), 2013 10th IEEE Working.</p>
+				
 			</div>
 	
 			<!--<div class="post">
