@@ -48,71 +48,22 @@
 
 						<tr><tr><td align="center"><b>"Monthly StackOverflow Visitors, January 2016"</b></td></tr><td><img src="images/visitorsJanuary2016.png" width="900" height="350"></img></td></tr>	
 					</table>
+
+					<p>Muchas de las preguntas a las que recurrimos en el sitio, no tienen una solución marcada, tienen muchos comentarios o definitivamente no tienen solución. Planteamos el análisis de Stack Overflow para responder algunas preguntas como: ¿qué tiempo debo esperar para obtener una solución favorable?, ¿por qué existen tantas preguntas sin respuesta?, para los usuarios registrados: ¿cómo incrementar su reputación en el sitio?. Estas son algunas de las preguntas que deseamos responder al finalizar el análisis</p>
 					
-					<br><br>
-								
-					<p>Existen ya algunos estudios sobre estos sitios, y no solamente de temas de la industria de tecnología sino también de sistemas Q&#38;A en general, por ejemplo sobre Yahoo Answers, el artículo denominado Measuring effectiveness and user satisfaction in Yahoo[1], que analiza 3 puntos: que tan rápido una pregunta es respondida, que tan rápido una pregunta es aceptada por el usuario por que satisface su interrogante y cuál es la relación entre una respuesta que satisface al usuario y el resto de respuestas, éste análisis tiene como objetivo determinar la eficiencia del sistema y la satisfacción del usuario.</p>
-
-					<p>Chirag et al [2] hace un estudio para predecir el tiempo de respuesta de una pregunta en StackOverflow, su análisis se basa en el análisis de características basadas en tags: como la popularidad del tag usado en una pregunta, tags populares, la probabilidad de que un conjunto de tags se muestren juntos en una pregunta, número de usuarios suscritos a los tags en base a las preguntas respondidas, y features correspondientes a la reputación de los usuarios y sus tiempos de respuesta, de estos features la reputación del usuario determinada por sus tiempos de respuestas era el feature que proporcionaba mayor fiabilidad al modelo, seguido de la popularidad del tag.</p>
-
-
-					<p>Mining Successful Answers et al [3], es otro de los artículos que estudia como predecir si una respuesta será marcada como aceptada, los factores estudiados son: Calidad de la presentación, afecto, tiempo y reputación o score de la respuesta, a diferencia de Chirag, en este estudio se evalua la calidad de la respuesta con análisis de sentimientos y con un modelo de regresión logística, obteniendo como resultado un mayor porcentaje de eficiencia en la feature de presencia de código en la respuesta, actitud positiva, reputación de la respuesta y del usuario que responde. </p>
-
-					<p>La base de datos de Stack OverFlow contiene gran cantidad de información sobre la cual crear distintos features para hacer un clasificador. En la propuesta del presente proyecto se analizará tanto las preguntas, respuestas y usuarios del sistema. </p>
-
 				</div>
 			</div>
 
 			<div class="post">
-				<p class="meta"><span class="date">2. Descripci&oacute;n de los Datos</span></p>
+				<p class="meta"><span class="date">2. Descripci&oacute;n de los Datos y Exploraci&oacute;n inicial</span></p>
 				<div style="clear: both;">&nbsp;</div>
 				<div class="entry">	
 				 <p>
 				 	Los datos utilizados para el proyecto fueron extraídos de <a href="https://bigquery.cloud.google.com/dataset/bigquery-public-data:stackoverflow">Stack Overflow Data</a> , El servicio web de Google BigQuery permite realizar almacenamiento y consultas de conjuntos de datos masivos con billones de filas.  
 				 </p>
 
-				 <p>Para el proyecto se seleccionó la base de datos de Stack Overflow, esta base de datos esta conformada de 16 tablas, de los cuales las que más relevantes consideramos para el proyecto son :</p>
-				 <table align="center" border="1">
-
-				 <tr>
-				 	<td align="center"><b>Num.</b></td>
-				 	<td align="center"><b>Tabla</b></td>
-				 	<td width="320" align="center"><b>Descripci&oacute;n</b></td>
-				 	<td align="center"><b>Atributos Relevantes</b></td>
-				 </tr>
-				 <tr>
-				 	<td>1</td>
-				 	<td>posts_questions</td>
-				 	<td>Contiene información relacionada a una pregunta realizada por un usuario registrado en la comunidad</td>
-				 	<td>
-				 		<ul><li>id</li><li>title</li><li>answer_count</li><li>score</li><li>tags</li></ul>
-				 	</td>
-				 </tr>
-				 <tr>
-				 	<td>2</td>
-				 	<td>posts_answers</td>
-				 	<td>Contiene información de las respuestas a preguntas realizadas y la calificación que la respuesta recibió.</td>
-				 	<td>
-				 		<ul><li>id</li><li>body</li><li>comment_count</li><li>creation_date</li><li>score</li></ul>
-				 	</td>
-				 </tr>
-
-				 <tr>
-				 	<td>3</td>
-				 	<td>users</td>
-				 	<td>Detalla información de los usuarios registrados y los usuarios visitantes en caso que estos tengan alguna insignia o reputación.</td>
-				 	<td>
-				 		<ul>
-				 			<li>location</li><li>reputation</li><li>up_votes</li><li>down_votes</li>
-				 		</ul>
-				 	</td>
-				 </tr>
-	
-				 </table>
-
+				 <p>Para el proyecto se seleccionó la base de datos de Stack Overflow, esta base de datos esta conformada de 16 tablas, de los cuales las que más relevantes consideramos para el proyecto son  las preguntas, respuestas, comentarios y usuarios. <a href="descripcionDatos.html" target="_blank">Aquí</a> se pueden visualizar los atributos de las tablas con más detalle. A continuación se muestran la cantidad de registros por tabla</p>
 				 </br>
-
-				 <p>Para el proyecto se seleccionó la base de datos de Stack Overflow, está conformada de 16 tablas, de las cuales seleccionamos las más relevantes para el análisis</p>
 				 <center>
 				 <table align="center" border="1">
 				 	<tr cellspacing='0.5'> 
@@ -142,19 +93,8 @@
 				 <br/>
 				 <p> Con la finalidad de crear un dataset para el proceso de análisis se extrajeron los datos de preguntas realizadas desde Enero de 2016 hasta Junio de 2017.</p>
 
-				 <p> El data set resultante para el análisis contiene los siguientes atributos:</p>
-				 <p>
-				 a_id, a_comment_count, a_community_owned_date, a_creation_date, a_last_activity_date, a_edit, a_last_editor_display_name, a_last_editor_user_id, a_owner_display_name, a_owner_user_id, a_parent_id, a_post_type_id, a_score, a_tags, q_id, q_accepted_answer_id, q_answer_count, q_comment_count, q_community_owned_date, q_creation_date, q_favorite_count, q_last_activity_date, q_last_edit_date, q_last_editor_display_name, q_last_editor_user_id, q_owner_display_name, q_owner_user_id, q_post_type_id, q_f0_, q_tags, q_view_count, c_accepted_answer_id, user_id, user_age, user_creation_date, user_reputation, user_up_votes, user_down_votes, user_views</p>
-
-				 <p>Los datos mencionados anteriormente son el resultado de la consulta sobre las preguntas, respuestas y usuarios, los atributos que empiezan con a corresponden a las respuestas, q a las preguntas y user respectivamente</p>
-
 				 <p>Para entender un poco más del significado de estos atributos, recurrimos a la 
 				 <a href="https://stackoverflow.com/help/whats-reputation">Wiki de StackOverflow</a>. Las preguntas, respuestas y usuarios tienen un puntaje o score que suma cuando un usuario da un voto y también puede disminuir, adicionalmente se puede observar el número de visitas, las fechas de creación y respuesta de la pregunta y reputación del usuario.</p>
-			</div>
-			<div class="post">
-				<p class="meta"><span class="date">3. Procesamiento de Datos y exploración inicial</span></p>
-				<div style="clear: both;">&nbsp;</div>
-				<div class="entry">	
 
 				 <p>Como exploración inicial visualizamos los tags que más se usan en las preguntas:</p>
 				 <div style="background-color: #e6e6e6; font-size: 1.0em; border: 1px solid grey">
@@ -179,14 +119,10 @@ for k,v in reader:
 				 <IMG SRC="images/wordCloud.png" ALT="Word Cloud Tags">				 
 				 </IMG>
 				 </center>
-				
-			</div>
-			</div>
-
-
+				 <p>La imagen muestra que la mayor parte de las preguntas realizadas en el sitio correponden a  lenguajes de programación como: javascript, java, android, python, c#, php, c++</p>
+			
 				 <p> Para el dataset de exploración seleccionamos las preguntas que tienen el tag java y python. </p>
-				<ol>
-					 <li>Se eliminaron los campos que no agregan valor a el análisis como id's y se reemplazaron los valores nulos, que eran datos vacíos por cero en los campos numéricos. 
+				<p>Se eliminaron los campos que no agregan valor a el análisis como id's y se reemplazaron los valores nulos, que eran datos vacíos por cero en los campos numéricos.</p> 
 					 <div style="background-color: #e6e6e6; font-size: 1.0em; border: 1px solid grey">
 					 <pre class="sql"> 
 select q_id, 
@@ -197,51 +133,78 @@ FROM
 	[fleet-automata-177802:filtros_stackoverflow.answer_question] 
 					 </pre>
 					 </div>
-					 </li>
-					 <li>
-					 <p>Se agregaron features como la fecha de la primera respuesta a una pregunta.</p> 
-					 <div style="background-color: #e6e6e6; font-size: 1.0em; border: 1px solid grey">
-					 <pre class="sql"> 
-select q_id, min(a_creation_date)from 
-	[fleet-automata-177802:filtros_stackoverflow.answer_question] group by 1
-					 </pre>
-					 </div>
-					 </li>
-					 <li>
-					 <p>Se obtuvieron algunas estadísticas sobre el tiempo de respuesta de las preguntas aceptadas y y la primera respuesta de una pregunta.</p>
+					 <p>Con la finalidad de observar el comportamiento de las respuestas a las preguntas en el tiempo se creó un gráfico de frecuencias. En el primer gráfico se puede observar la frecuencia con la que las preguntas reciben su primera respuesta, la cual en su mayoría es en la primera hora, sin embargo existen preguntas que se responden después de un día incluso meses. <a href="codigo/BarTimeAnswerFrequency.py">Código fuente</a></p>
+					 
 					 <center>
 					 <table>
 					 <tr>
 					 	<td>
-						<IMG SRC="images/tiempo_primera_respuesta.png" ALT="Primera respuesta" width="350" height="250">				 
+						<IMG SRC="images/tiempo_primera_respuesta.png" ALT="Primera respuesta" width="500" height="350">				 
 				 		</IMG>
 				 		</td>
 				 		<td>
-				 		<IMG SRC="images/tiempo_respuesta_aceptada.png" ALT="Respuesta aceptada" width="350" height="250">				 
+				 		<IMG SRC="images/tiempo_respuesta_aceptada.png" ALT="Respuesta aceptada" width="500" height="350">				 
 				 		</IMG>
 				 		</td>
 				 	 </tr>
 				 	 </table>
 				 	 </center>
 				 	 <p>
-				 	 	El comportamiento de la primera respuesta y la respuesta aceptada aparentemente es similar, esto indica que en la mayoría de los casos la primera respuesta tiene la solución acertada, sin embargo también se observa que hay preguntas que se responden después de días y en algunos casos meses. Este sería un factor determinante en determinar cuando una pregunta es más difícil que otra. 
+				 	 	El comportamiento de la primera respuesta y la respuesta aceptada aparentemente es similar, esto indica que en la mayoría de los casos la primera respuesta es la seleccionada.
 				 	 </p>
-				 	 </li>
-				 	 <li>
-				 	 <p>Adicionalmente se agruparon los datos de preguntas y respuestas para crear una visualización multidimensional(Parallel Cordinates), luego de un proceso de normalización de datos, para descubrir patrones sobre la clasificación de las preguntas. 
+				 	 
+				 	 <p>
+				 	 	Otra de las variables analizadas fue el número de respuestas por pregunta. Obteniendo como resultado una diferencia de el 25% entre las preguntas con respuesta y sin respuesta seleccionada. Se puede observar además que existe al menos una pregunta que tiene más de 20 respuestas. <a href="codigo/BarAnswerCount.py">Código fuente</a></p>
 				 	 </p>
+
 				 	  <center>
-				 	 <IMG SRC="images/preguntasRespuestas.png" ALT="Primera respuesta" width="700" height="500">
+				 	 <IMG SRC="images/respuestasPorPregunta.png" ALT="Respuestas por pregunta" width="600" height="400">
 				 	 </IMG>
 				 	 </center>
-				 	 <p>
-				 	 Los datos están clasificados por las preguntas con respuestas aceptadas(1) y con respuestas no aceptadas(0). La visualización presenta mucho ruido debido a que las dos clases tienen un comportamiento similar, sin embargo si se pueden observar patrones como el score de una pregunta que para el caso de preguntas sin respuesta tienen un score menos de 0, esto puede deberse a la ambiguedad de la pregunta, que sería un factor a tener en cuenta en la clasificación. Además también se puede observar que para este set de datos que gran cantidad de respuestas aceptadas en este caso no corresponde a las primeras respuestas.    
-				 	 </p>
-				 	 </li>
-					<p>
-					Una vez limpiados los datos se realizaron algunos análisis para encontrar patrones y definir las features que se considerarán para el diseño del modelo. 
-					</p>
 
+
+				 	 
+				 	 <p>Para visualizar la relación entre los atributos cuantitivos del dataset se creó una visualización multidimensional. Los atributos que inician con 'a_' corresponden a la suma total de todas las respuestas no aceptadas de una pregunta, los que incian con 'q_' son los atributos de las preguntas, los tiempos corresponden a la primera respuesta (time_first_a), la última (time_last_a), y el tiempo de la respuesta aceptada (time_atd), además se contempló los atributos de la respuesta aceptada (atd_comments,atd_edit,atd_score). El atributo particular edit corresponde a la cantidad de respuestas editadas. <a href="codigo/ParallelCordinates.py">Código fuente</a></p>
+				 	 <center>				 	 
+				 	 <img src="images/preguntasRespuestas.png" width="1000" height="550"/></center>
+				 	 
+
+				 	 <p>Del gráfico anterior se puede concluir que existen atributos no tienen una relación determinante con la clase de pregunta. Existe una cantidad apreciable de preguntas cuyas respuestas fueron emitidas después de un largo tiempo y que no fueron seleccionadas. Como se había visto anteriormente la primera respuesta es aceptada.</p>
+
+				 	 <p>Se colocaron los atributos de numero de comentarios, edicion y score de la respuesta aceptada para compararla con el valor de las respuestas no aceptadas y se puede observar que la respuesta aceptada tiene más comentarios que la suma de los comentarios de todas las respuestas no aceptadas, de igual manera la cantidad de ediciones y el score. 
+				 	  </p>
+
+				 </div>
+				 </div>	 
+
+			<div class="post">
+				<p class="meta"><span class="date">3. Problemática a abordar</span></p>
+				<div style="clear: both;">&nbsp;</div>
+				<div class="entry">	
+					<p>Aproximadamente el 50% de las preguntas realizadas en StackOverFlow no obtienen una respuesta en este popular sitio, por esta razón el objetivo principal que se desea abordar es la caracterización de estas preguntas en base al análisis de los atributos que se puedan extraer de los datos recolectados y generar nuevos atributos que permitan acercarse más a un resultado feaciente</p>
+
+					<p>En el análisis previo se observa que las variables o atributos que mayor aportan para discretizar las clases definidas son las fechas de publicación tanto de las preguntas como las respuestas y los threads generados por una pregunta, es decir los comentarios realizados en los dos ámbitos. Adicionalmente analizar la incidencia del score de los usuarios que participan con una respuesta y los tags relacionados a las preguntas.</p>
+
+					<p>El contenido de las preguntas, respuestas y algunos comentarios contiene código y caracteres especiales, por lo que realizar análisis de sentimientos estándar sobre éstos para determinar la poralidad del texto no puede ser muy útil, por lo tanto en primera instancia analizaremos los atributos anteriormente mencionados</p>
+
+				</div>
+			</div>
+			
+			<div class="post">
+				<p class="meta"><span class="date">4. Temas relacionados</span></p>
+				<div style="clear: both;">&nbsp;</div>
+				<div class="entry">	
+
+			<p>Existen ya algunos estudios sobre estos sitios, y no solamente de temas de la industria de tecnología sino también de sistemas Q&#38;A en general, por ejemplo sobre Yahoo Answers, el artículo denominado Measuring effectiveness and user satisfaction in Yahoo[1], que analiza 3 puntos: que tan rápido una pregunta es respondida, que tan rápido una pregunta es aceptada por el usuario por que satisface su interrogante y cuál es la relación entre una respuesta que satisface al usuario y el resto de respuestas, éste análisis tiene como objetivo determinar la eficiencia del sistema y la satisfacción del usuario.</p>
+
+			<p>Chirag et al [2] hace un estudio para predecir el tiempo de respuesta de una pregunta en StackOverflow, su análisis se basa en el análisis de características basadas en tags: como la popularidad del tag usado en una pregunta, tags populares, la probabilidad de que un conjunto de tags se muestren juntos en una pregunta, número de usuarios suscritos a los tags en base a las preguntas respondidas, y features correspondientes a la reputación de los usuarios y sus tiempos de respuesta, de estos features la reputación del usuario determinada por sus tiempos de respuestas era el feature que proporcionaba mayor fiabilidad al modelo, seguido de la popularidad del tag.</p>
+
+
+			<p>Mining Successful Answers et al [3], es otro de los artículos que estudia como predecir si una respuesta será marcada como aceptada, los factores estudiados son: Calidad de la presentación, afecto, tiempo y reputación o score de la respuesta, a diferencia de Chirag, en este estudio se evalua la calidad de la respuesta con análisis de sentimientos y con un modelo de regresión logística, obteniendo como resultado un mayor porcentaje de eficiencia en la feature de presencia de código en la respuesta, actitud positiva, reputación de la respuesta y del usuario que responde. </p>
+
+			<p>La base de datos de Stack OverFlow contiene gran cantidad de información sobre la cual crear distintos features para hacer un clasificador. En la propuesta del presente proyecto se analizará tanto las preguntas, respuestas y usuarios del sistema. </p>
+
+			</div>
 			</div>
 
 			<div>
