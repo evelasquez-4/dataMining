@@ -12,7 +12,7 @@
 <div id="wrapper">
 	<div id="header">
 		<div id="logo">
-			<h1><a href="#">An&aacute;lisis de Sistemas Colaborativos :  </br>    
+			<h1><a href="#">An&aacute;lisis del Sistema Colaborativo :  </br>    
 							 "Stack Overflow"</a></h1>			
 		</div>
 	</div>
@@ -40,14 +40,15 @@
 					<p>La etapa de implementación o codificación en lo que al proceso de desarrollo de software respecta, es considerada crucial para un proyecto, esto debido a que en esta etapa en particular entre otras tareas, se desarrolla el código fuente del proyecto. Algo muy peculiar en esta etapa, es que los ingenieros de software encargados del desarrollo de código fuente,suelen encontrase con cierto tipo de problemas o errores en su código, es a partir de este tipo problemas que surge una cuestión muy genérica entre los desarrolladores de software: ¿Dónde podría recurrirse o consultar la solución a estos problemas? 
 					</p>
 					<p>
-					Una posible respuesta a la cuestión anteriormente planteada podría ser el de recurrir a plataformas o sistemas web colaborativos, con el objetivo de poder hacer preguntas o revisar  soluciones respecto al problema en cuestión. Uno de los sistemas web colaborativos más populares entre los desarrolladores informáticos en la web es denominado:<a href="https://stackoverflow.com/">“Stack Overflow”</a>.
+					Una posible respuesta a la pregunta  planteada podría ser  recurrir a plataformas o sistemas web colaborativos, con el objetivo de poder hacer preguntas o revisar  soluciones respecto al problema. Uno de los sistemas web colaborativos más populares entre los desarrolladores informáticos en la web es denominado:<a href="https://stackoverflow.com/">“Stack Overflow”</a>.
 					</p>
-					<p>Stack Overflow, es uno de los sistemas colaborativos en línea más grande y confiable entre la comunidad de desarrolladores informáticos, en la misma los usuarios puedan hacer  y responder preguntas. Existen muchos sistemas exchange, entre ellos algunos bien conocidos Yahoo Answers y Quora, en el siguiente enlace se pueden ver más de estos sistemas. <a href="https://stackexchange.com/sites">Stack Exchange</a>  </p>
+					<p>Stack Overflow, es uno de los sistemas colaborativos en línea más grande y confiable entre la comunidad de desarrolladores informáticos, los usuarios puedan hacer  y responder preguntas. Existen muchos sistemas exchange, entre ellos algunos bien conocidos Yahoo Answers y Quora, en el siguiente enlace se pueden ver más de estos sistemas. <a href="https://stackexchange.com/sites">Stack Exchange</a>  </p>
 					<br><br>
 					<table align="center">
 
 						<tr><tr><td align="center"><b>"Monthly StackOverflow Visitors, January 2016"</b></td></tr><td><img src="images/visitorsJanuary2016.png" width="900" height="350"></img></td></tr>	
 					</table>
+					<br/>
 
 					<p>Muchas de las preguntas a las que recurrimos en el sitio, no tienen una solución marcada, tienen muchos comentarios o definitivamente no tienen solución. Planteamos el análisis de Stack Overflow para responder algunas preguntas como: ¿qué tiempo debo esperar para obtener una solución favorable?, ¿por qué existen tantas preguntas sin respuesta?, para los usuarios registrados: ¿cómo incrementar su reputación en el sitio?. Estas son algunas de las preguntas que deseamos responder al finalizar el análisis</p>
 					
@@ -59,10 +60,10 @@
 				<div style="clear: both;">&nbsp;</div>
 				<div class="entry">	
 				 <p>
-				 	Los datos utilizados para el proyecto fueron extraídos de <a href="https://bigquery.cloud.google.com/dataset/bigquery-public-data:stackoverflow">Stack Overflow Data</a> , El servicio web de Google BigQuery permite realizar almacenamiento y consultas de conjuntos de datos masivos con billones de filas.  
+				 	Los datos utilizados para el proyecto fueron extraídos de <a href="https://bigquery.cloud.google.com/dataset/bigquery-public-data:stackoverflow">Stack Overflow Data</a> , El servicio web de Google BigQuery permite realizar almacenamiento y consultas de conjuntos de datos masivos con billones de registros.  
 				 </p>
 
-				 <p>Para el proyecto se seleccionó la base de datos de Stack Overflow, esta base de datos esta conformada de 16 tablas, de los cuales las que más relevantes consideramos para el proyecto son  las preguntas, respuestas, comentarios y usuarios. <a href="descripcionDatos.html" target="_blank">Aquí</a> se pueden visualizar los atributos de las tablas con más detalle. A continuación se muestran la cantidad de registros por tabla</p>
+				 <p>Para el proyecto se seleccionó la base de datos de Stack Overflow, esta base de datos esta conformada de 16 tablas, de las cuales consideramos como relevantes son  las preguntas, respuestas, tags, comentarios y usuarios. <a href="descripcionDatos.html" target="_blank">En este enlace</a> se pueden visualizar los atributos de las tablas con más detalle. A continuación se muestran la cantidad de registros por tabla</p>
 				 </br>
 				 <center>
 				 <table align="center" border="1">
@@ -94,7 +95,7 @@
 				 <p> Con la finalidad de crear un dataset para el proceso de análisis se extrajeron los datos de preguntas realizadas desde Enero de 2016 hasta Junio de 2017.</p>
 
 				 <p>Para entender un poco más del significado de estos atributos, recurrimos a la 
-				 <a href="https://stackoverflow.com/help/whats-reputation">Wiki de StackOverflow</a>. Las preguntas, respuestas y usuarios tienen un puntaje o score que suma cuando un usuario da un voto y también puede disminuir, adicionalmente se puede observar el número de visitas, las fechas de creación y respuesta de la pregunta y reputación del usuario.</p>
+				 <a href="https://stackoverflow.com/help/whats-reputation">Wiki de StackOverflow</a>. Las preguntas, respuestas y usuarios tienen un puntaje o score que suma cuando un usuario da un voto y también puede disminuir, además del número de visitas, la fecha de creación y respuesta de la pregunta y reputación del usuario.</p>
 
 				 <p>Como exploración inicial visualizamos los tags que más se usan en las preguntas:</p>
 				 <div style="background-color: #e6e6e6; font-size: 1.0em; border: 1px solid grey">
@@ -195,17 +196,24 @@ FROM
 				<div style="clear: both;">&nbsp;</div>
 				<div class="entry">	
 
-			<p>Existen ya algunos estudios sobre estos sitios, y no solamente de temas de la industria de tecnología sino también de sistemas Q&#38;A en general, por ejemplo sobre Yahoo Answers, el artículo denominado Measuring effectiveness and user satisfaction in Yahoo[1], que analiza 3 puntos: que tan rápido una pregunta es respondida, que tan rápido una pregunta es aceptada por el usuario por que satisface su interrogante y cuál es la relación entre una respuesta que satisface al usuario y el resto de respuestas, éste análisis tiene como objetivo determinar la eficiencia del sistema y la satisfacción del usuario.</p>
+			<p>Existen ya algunos estudios sobre estos sitios, y no solamente  temas de la industria de tecnología sino también de sistemas Q&#38;A en general, por ejemplo sobre Yahoo Answers, el artículo denominado Measuring effectiveness and user satisfaction in Yahoo[1], que analiza 3 puntos: que tan rápido una pregunta es respondida, que tan rápido una pregunta es aceptada por el usuario por que satisface su interrogante y cuál es la relación entre una respuesta que satisface al usuario y el resto de respuestas, éste análisis tiene como objetivo determinar la eficiencia del sistema y la satisfacción del usuario.</p>
 
-			<p>Chirag et al [2] hace un estudio para predecir el tiempo de respuesta de una pregunta en StackOverflow, su análisis se basa en el análisis de características basadas en tags: como la popularidad del tag usado en una pregunta, tags populares, la probabilidad de que un conjunto de tags se muestren juntos en una pregunta, número de usuarios suscritos a los tags en base a las preguntas respondidas, y features correspondientes a la reputación de los usuarios y sus tiempos de respuesta, de estos features la reputación del usuario determinada por sus tiempos de respuestas era el feature que proporcionaba mayor fiabilidad al modelo, seguido de la popularidad del tag.</p>
+			<p>El mayor desafío se encuentra en seleccionar las características idóneas para realizar una buena clasificación o análisis de predictibilidad, ya que un sistema exchange involucra un ciclo en cada pregunta, y cada pregunta tiene un inicio y fin distintos.</p>
+
+			<p>Chirag et al [2] hace un estudio para predecir el tiempo de respuesta en StackOverflow, para su análisis selecciona características basadas en tags: como la popularidad del tag usado en una pregunta, tags populares, la probabilidad de que un conjunto de tags se muestren juntos en una pregunta, número de usuarios suscritos a los tags en base a las preguntas respondidas, features correspondientes a la reputación de los usuarios y sus tiempos de respuesta. De estas features la reputación del usuario determinada por sus tiempos de respuestas era la feature que proporcionaba mayor fiabilidad al modelo, seguido de la popularidad del tag</p>
+
+			<p>Elaborar una buena respuesta puede llevar cierto tiempo, aún cuando la respuesta sea inmediata, debe llevar el contenido suficiente y acertado, por esta razón no siempre la primera respuesta es aceptada cuando se trata de una respuesta sin ejemplos o vaga. El análisis del tiempo acompañado de la experiencia determinada a través de los tags y reputación del usuario es una buena combinación al hacer el análisis de predictibilidad.</p>
 
 
-			<p>Mining Successful Answers et al [3], es otro de los artículos que estudia como predecir si una respuesta será marcada como aceptada, los factores estudiados son: Calidad de la presentación, afecto, tiempo y reputación o score de la respuesta, a diferencia de Chirag, en este estudio se evalua la calidad de la respuesta con análisis de sentimientos y con un modelo de regresión logística, obteniendo como resultado un mayor porcentaje de eficiencia en la feature de presencia de código en la respuesta, actitud positiva, reputación de la respuesta y del usuario que responde. </p>
+			<p>Mining Successful Answers et al [3], es otro de los artículos que estudia como predecir si una respuesta será marcada como aceptada, los factores estudiados son: Calidad de la presentación, afecto, tiempo y reputación o score de la respuesta. A diferencia de Chirag [2], en este estudio se evalua la calidad de la respuesta con un análisis de sentimientos específico que pretende determinar el grado de afectividad del usuario que responde. En el resultado se obtuvo un mayor porcentaje de eficiencia en el atributo de presencia de código en la respuesta, actitud positiva, reputación de la respuesta y reputación del usuario.</p>
 
-			<p>La base de datos de Stack OverFlow contiene gran cantidad de información sobre la cual crear distintos features para hacer un clasificador. En la propuesta del presente proyecto se analizará tanto las preguntas, respuestas y usuarios del sistema. </p>
+			<p>Los dos estudios presentados coinciden en usar el tiempo de la respuesta y la reputación del usuario como características para determinar el éxito de una respuesta. En el presente proyecto se pretende además analizar los tags de las preguntas y su relación con la experiencia del usuario a través de su historial de respuestas.</p>
 
 			</div>
 			</div>
+
+			<div class="post">
+			<div><p style="font-weight: bold;">REFERENCIAS</p></div>
 
 			<div>
 				<p>[1]. Chirag Shah (2011), Measuring effectiveness and user satisfaction in Yahoo.</p>
@@ -213,6 +221,7 @@ FROM
 				"Min(e)d Your Tags: Analysis of Question Response Time in StackOverflow".</p>
 				<p>[3]. Fabio Calefato, Filippo Lanubile, Maria Concetta Marasciulo, Nicole Novielli (2015), "Mining Successful Answers in Stack Overflow", Conference: MSR 2015 - The 12th Working Conference on Mining Software Repositories.</p>
 				<p>[4]. Muhammad A, Ahmed Shah M, Chanchal K. Roy, Kevin A. Schneider, Answering Questions about Unanswered Questions of Stack Overflow, Mining Software Repositories (MSR), 2013 10th IEEE Working.</p>
+			</div>
 			</div>
 	
 			<!--<div class="post">
