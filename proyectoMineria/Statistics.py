@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from sklearn.ensemble import ExtraTreesClassifier
 
 
-df=pd.read_csv("/media/jhomara/Datos/MG-DCC/MINERIA_DATOS/dm_project/entrega2/features.csv", quotechar='"')
+df=pd.read_csv("features.csv", quotechar='"')
 
 num_features = ['post_comment_count',
                 'post_favorite_count','post_score',
@@ -46,9 +46,9 @@ def run_classifier(clf, X, y, num_tests=100):
 X = df.iloc[:,1:]
 y = df.iloc[:,0]
 
-c1 = ("DT", DecisionTreeClassifier())
-c2 = ("NB", GaussianNB())
-c3 = ("KNN", KNeighborsClassifier(n_neighbors=20))
+c1 = ("Decision Tree", DecisionTreeClassifier())
+c2 = ("Gaussian NB", GaussianNB())
+c3 = ("KNeighbors", KNeighborsClassifier(n_neighbors=20))
 
 classifiers = [c1, c2, c3]
 result_list = []
