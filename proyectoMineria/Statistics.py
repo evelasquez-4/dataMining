@@ -63,8 +63,8 @@ for name, clf in classifiers:
 
 print("+ indica diferencia significativa\n")
 
-for name1, results1 in result_list:
-    print("Comparando %s - Accuracy: %.2f" % (name1, results1.mean()))
+for name, results in result_list:
+    print("Comparando %s - Accuracy: %.2f" % (name, results.mean()))
     print()
 
 forest = ExtraTreesClassifier(n_estimators=250,
