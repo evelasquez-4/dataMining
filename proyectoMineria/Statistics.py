@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.dummy import DummyClassifier
 
-df=pd.read_csv("features.csv", quotechar='"')
+df=pd.read_csv("features2.csv", quotechar='"')
 
 num_features = ['post_comment_count',
                 'post_favorite_count','post_score',
@@ -23,28 +23,30 @@ num_features = ['post_comment_count',
 
 scaled_features = {}
 for each in num_features:
-    print(each)
+    #print(each)
     mean, std = df[each].mean(), df[each].std()
     scaled_features[each] = [mean, std]
     df.loc[:, each] = (df[each] - mean)/std
 
-df=df.iloc[:,1:]
+#df=df.iloc[:,1:]
 #print(df)
 
-def run_classifier(clf, X, y, num_tests=100):
+def run_classifier(clf, X, y, num_tests=10):
     scores = []
 
     for _ in range(num_tests):
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=num_tests)
         clf.fit(X_train, y_train)
-        #y_pred = clf.predict(X_test)
+        y_pred = clf.predict(X_test)
         #print(classification_report(y_test, y_pred))
         scores.append(clf.score(X_test, y_test))  # X_test y y_test deben ser definidos previamente
 
     return np.array(scores)
 
-X = df.iloc[:,1:]
+X = df.iloc[:,2:]
 y = df.iloc[:,0]
+
+print(X)
 
 c1 = ("Decision Tree", DecisionTreeClassifier())
 c2 = ("Gaussian NB", GaussianNB())
@@ -66,7 +68,7 @@ print("+ indica diferencia significativa\n")
 for name, results in result_list:
     print("Comparando %s - Accuracy: %.2f" % (name, results.mean()))
     print()
-
+"""
 forest = ExtraTreesClassifier(n_estimators=250,
                               random_state=0)
 
@@ -86,7 +88,7 @@ plt.barh(range(X.shape[1]), importances[indices],
 plt.yticks(range(X.shape[1]), indices)
 plt.ylim([-1, X.shape[1]])
 plt.show()
-
+"""
 
 
 
