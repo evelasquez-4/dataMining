@@ -8,7 +8,7 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from sklearn.ensemble import ExtraTreesClassifier
-
+from sklearn.dummy import DummyClassifier
 
 df=pd.read_csv("features.csv", quotechar='"')
 
@@ -49,8 +49,11 @@ y = df.iloc[:,0]
 c1 = ("Decision Tree", DecisionTreeClassifier())
 c2 = ("Gaussian NB", GaussianNB())
 c3 = ("KNeighbors", KNeighborsClassifier(n_neighbors=20))
+dc1 = ("Dummy: stratified", DummyClassifier(strategy="stratified", random_state=0, constant=0))
+dc2 = ("Dummy: most_frequent", DummyClassifier(strategy="most_frequent", random_state=0, constant=0))
+dc3 = ("Dummy: uniform", DummyClassifier(strategy="uniform", random_state=0, constant=0))
 
-classifiers = [c1, c2, c3]
+classifiers = [c1, c2, c3, dc1, dc2, dc3]
 result_list = []
 
 for name, clf in classifiers:
