@@ -12,12 +12,12 @@
 
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="style2.css" rel="stylesheet" type="text/css" media="screen" />
-
+<link href="style3.css" rel="stylesheet" type="text/css" media="screen" />
 
 </head>
 <body>
 
-<script>
+<script type="text/javascript">
 function eventosPestania(n) {
 
 	if (n == 1){
@@ -29,6 +29,8 @@ function eventosPestania(n) {
 		document.getElementById("a1").setAttribute("class", "current_page_item");
 		document.getElementById("a2").setAttribute("class", "");
 		document.getElementById("a3").setAttribute("class", "");
+
+
 	}
 	else if(n==2){
 		document.getElementById("page").hidden = true
@@ -38,8 +40,17 @@ function eventosPestania(n) {
 		document.getElementById("a2").setAttribute("class", "current_page_item");
 		document.getElementById("a1").setAttribute("class", "");
 		document.getElementById("a3").setAttribute("class", "");
+
 	}
-	else{
+	else if (n==3){
+		
+		
+		aux = document.getElementById("page3").attributes.length;
+		if (aux ==2)
+		{
+			readTextFile('./parte3.txt')
+			}
+
 		document.getElementById("page").hidden = true
 		document.getElementById("page2").hidden = true
 		document.getElementById("page3").hidden = false
@@ -47,9 +58,30 @@ function eventosPestania(n) {
 		document.getElementById("a3").setAttribute("class", "current_page_item");
 		document.getElementById("a1").setAttribute("class", "");
 		document.getElementById("a2").setAttribute("class", "");
+
+		
 	}
 
 }
+
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+               document.getElementById("page3").innerHTML = allText;
+            }
+        }
+    }
+    rawFile.send(null);
+}
+
 </script>
  
 <div id="wrapper">
@@ -305,7 +337,7 @@ FROM
 		
 			      <div class="post">
 			      	  <h2 class="title"><!--<a href="#">Introducci&oacute;n</a>--></h2> 
-			      	<p class="meta"><span class="date">1. Preprocesamiento de Datos</span></p>
+			      	<p class="meta"><span class="date">2.1. Preprocesamiento de Datos</span></p>
 			      	<div style="clear: both;">&nbsp;</div>
 					<div class="entry">	
 						<p>Para responder las hipótesis planteadas se consideraron solamente las tablas de posts, usuarios y tags, eliminando las columnas de identificadores de las tablas  y ejecutando un query se obtuvieron nuevos atributos que se indican acontinuación.</p>
@@ -856,10 +888,21 @@ FROM
 		</div>
 		<div class="inner_cell">
 		<div class="text_cell_render border-box-sizing rendered_html">
-		<h2 id="ESTAD&#205;STICAS">ESTAD&#205;STICAS<a class="anchor-link" href="#ESTAD&#205;STICAS">&#182;</a></h2>
+
+		
+
 		</div>
 		</div>
-		</div>		
+		</div>	
+
+		<div class="post">
+			
+			<h2 class="title"><!--<a href="#">Introducci&oacute;n</a>--></h2> 
+			<p style="font-weight: bold;">2.2  ESTAD&Iacute;STICAS</p>
+			<div style="clear: both;">&nbsp;</div>
+
+		</div>
+			
 
 		<div class="cell border-box-sizing code_cell rendered">
 		<div class="input">
@@ -3945,11 +3988,13 @@ FROM
 	</div>
 	</div>
 
+	</div>
+	</div>
+	</div>
+	</div>
 
 	<div id="page3" hidden="true">
-		<div id="page-bgtop"></div>
-		<div id="page-bgbtm"></div>
-		<p>parrafo 3</p>
+
 	</div>	
 
 </div>
@@ -3959,3 +4004,4 @@ FROM
 	<!-- end #footer -->
 </body>
 </html>
+
