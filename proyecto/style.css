@@ -152,8 +152,8 @@ a:hover {
 }
 
 #menu ul {
-	margin: 0;
-	padding: 0;
+	margin: 1;
+	padding: 2;
 	list-style: none;
 	line-height: normal;
 }
@@ -195,6 +195,16 @@ a:hover {
 	padding: 0;
 }
 
+#page2 {
+	width: auto;
+	margin: 0px 40px 0px 80px;
+	padding: 0;
+}
+#page3 {
+	width: auto;
+	margin: 0px 40px 0px 80px;
+	padding: 0;
+}
 #page-bgtop {
 	padding: 20px px;
 }
