@@ -11967,7 +11967,7 @@ QgghhJBahCZ/hBBCCCG1CE3+CCGEEEJqkf8B22ehj5/e/IkAAAAASUVORK5CYII=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>No se encuentran características muy relacionados y considerando que se tienen 16, se evaluarán todas en el clasificador.</p>
-<p>Con la experiencia para responder la pregunta 1 consideramos el clasificador Decision Tree para este segundo experimento:</p>
+<p>Con la experiencia obtenida con el primer caso de clasificación en la pregunta 1, consideramos el clasificador Decision Tree para este segundo experimento:</p>
 
 </div>
 </div>
@@ -12576,7 +12576,7 @@ KL4AAFhG8QUAwDKKLwAAlv0fy8P2rUJ7Hl4AAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Las características relacionadas al post que se está respondiendo como el score del post, favorito, cantidad de comentarios tienen mayor influencia en el clasficador.</p>
+<p>Las características relacionadas al post que se está respondiendo como el score del post, favorito, cantidad de comentarios tienen mayor influencia en el clasificador.</p>
 <p>A continuación eliminaremos esas características para observar el comportamiento del resto.</p>
 
 </div>
@@ -21676,12 +21676,12 @@ EGJ2arUaIpGomR37wsGMGtrCxyvsWxxbXl7O+jUQQp6PQgQhhBBCOoRCBCGEEEI6hEIEIYQQQjrk
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Una vez aplicadas las reglas de asociación sobre los TAGS de los POST(preguntas) que no tienen una respuesta asoicada y los TAGS de los POST que tiene respuestas asociadas y basandonos en la reglas de induccion aplicadas, pudimos llegar a las conclusiones siguientes :</p>
+<p>Una vez aplicadas las reglas de asociación sobre los TAGS de los POST(preguntas) que no tienen una respuesta y los TAGS de los POST que tiene respuestas, y basándonos en la reglas de inducción aplicadas pudimos llegar a las conclusiones siguientes :</p>
 <ul>
-<li>Si bien en el conjunto de asociaciones generados algunos de los TAGS de las preguntas sin una respuesta, se encuentran entre los TAGS mas frecuentemente utilizados (apache,php,android, etc.), este caso podria tornarse interesante por el hecho de que la mayoria de las preguntas con respuesta generalmente son registrados con algun TAG popular o frecuentemente utilizado. Para estos casos en particular llegamos a determinar que se pudo dar el caso de que debido a que una pregunta es registrada con hasta 5 TAGS, la pregunta tienen un mix de TAGS, es decir tiene TAGS frecuentes e y no frecuentes que fueron registrados con las preguntas.</li>
+<li>Si bien en el conjunto de asociaciones generadas algunos de los TAGS de las preguntas sin respuesta se encuentran entre los TAGS mas frecuentemente utilizados (apache,php,android, etc.), este caso podria tornarse interesante por el hecho de que la mayoria de las preguntas con respuesta generalmente son registrados con algun TAG popular o frecuentemente utilizado. Para estos casos en particular llegamos a determinar que existen preguntas con hasta 5 TAGS, algunos frecuentes y otros no, lo que permite comprobar que no se puede determinar que una pregunta tiene mayor probabilidad de responderse si tiene ciertos tags en particular.</li>
 </ul>
 <ul>
-<li>Para los conjuntos de asociaciones de las preguntas que tienen respuesta, no se presentaron casos fuera de serie, las asociaciones generadas eran las que se esperaban, es decir en conjunto de asociaciones de los TAGS de las pregusntas se encuentran entre los TAGS mas frecuentemente utilizados en las preguntas.</li>
+<li>Para los conjuntos de asociaciones de las preguntas que tienen respuesta, no se presentaron casos fuera de serie, las asociaciones generadas eran las que se esperaban, es decir en conjunto de asociaciones de los TAGS de las preguntas se encuentran entre los TAGS mas frecuentemente utilizados.</li>
 </ul>
 
 </div>
@@ -21708,7 +21708,16 @@ EGJ2arUaIpGomR37wsGMGtrCxyvsWxxbXl7O+jUQQp6PQgQhhBBCOoRCBCGEEEI6hEIEIYQQQjrk
                <p class="meta"><span class="date">4.1. Conclusiones Generales</span></p>
                <div style="clear: both;">&nbsp;</div>
                <div class="entry">
- 
+ 				<ul>
+ 					<li>La ingeniería de características es la tarea más compleja y decisiva al momento de predecir datos.</li>
+ 					<li>Es posible predecir si una pregunta va a tener una respuesta con un 50% de precisión cuando no se considera los datos de reputación del post y si se consideran estos datos hasta un 78%.</li>
+ 					<li>No se puede predecir de forma efectiva si una respuesta tendrá un buen score, ya que esto dependerá también de la reputación del post.</li>
+
+ 					<li>No se pudo comprobar que los tags identifican a las preguntas que serán respondidas o no, esto dependerá de otras características como las que se plantearon en este trabajo, es decir los tags por si solos no indican si una pregunta va a ser respondida o no, por más "fáciles" o populares que sean los temas.</li>
+
+ 					<li>Se pudieron aplicar las técnicas de clasificación aprendidas, encontrando que los árboles de decisión obtuvieron mejores resultados frente al resto de técnicas para las características propuestas.</li>
+
+ 				</ul>
 
                <!-- CONCLUSIONES -->
 
